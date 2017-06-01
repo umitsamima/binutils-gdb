@@ -6470,6 +6470,9 @@ ada_collect_symbol_completion_matches (completion_tracker &tracker,
   {
     QUIT;
 
+    if (completion_skip_symbol (mode, msymbol))
+      continue;
+
     completion_list_add_name (tracker,
 			      MSYMBOL_LANGUAGE (msymbol),
 			      MSYMBOL_LINKAGE_NAME (msymbol),
@@ -6486,6 +6489,9 @@ ada_collect_symbol_completion_matches (completion_tracker &tracker,
 
       ALL_BLOCK_SYMBOLS (b, iter, sym)
       {
+	if (completion_skip_symbol (mode, sym))
+	  continue;
+
 	completion_list_add_name (tracker,
 				  SYMBOL_LANGUAGE (sym),
 				  SYMBOL_LINKAGE_NAME (sym),
@@ -6502,6 +6508,9 @@ ada_collect_symbol_completion_matches (completion_tracker &tracker,
     b = BLOCKVECTOR_BLOCK (COMPUNIT_BLOCKVECTOR (s), GLOBAL_BLOCK);
     ALL_BLOCK_SYMBOLS (b, iter, sym)
     {
+      if (completion_skip_symbol (mode, sym))
+	continue;
+
       completion_list_add_name (tracker,
 				SYMBOL_LANGUAGE (sym),
 				SYMBOL_LINKAGE_NAME (sym),
@@ -6518,6 +6527,9 @@ ada_collect_symbol_completion_matches (completion_tracker &tracker,
       continue;
     ALL_BLOCK_SYMBOLS (b, iter, sym)
     {
+      if (completion_skip_symbol (mode, sym))
+	continue;
+
       completion_list_add_name (tracker,
 				SYMBOL_LANGUAGE (sym),
 				SYMBOL_LINKAGE_NAME (sym),
